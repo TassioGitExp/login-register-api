@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-App<html-and-java>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "study.tassio.App",
+            "projectName": "html-and-java",
+            "args": ""
+        }
+    ]
+}

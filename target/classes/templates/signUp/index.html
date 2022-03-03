@@ -2,9 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
     <title>Sign Up</title>
 </head>
 <body>
-<h1>SING UP</h1>
+    <!-- <h1>SING UP</h1> -->
+    <div class="container" id="sign-in-up">
+        <!-- <h1>SING IN</h1> -->
+        <h2 id="sign-in-up-title">Sign up</h2>
+        <form>
+            <!-- First name input -->
+            <div class="form-outline mb-2">
+                <input type="text" id="form1Example1" class="form-control" />
+                <label class="form-label" for="form1Example1">First name</label>
+            </div>
+
+            <!-- Last name input -->
+            <div class="form-outline mb-2">
+                <input type="text" id="form1Example1" class="form-control" />
+                <label class="form-label" for="form1Example1">Last name</label>
+            </div>
+
+            <!-- Email input -->
+            <div class="form-outline mb-2">
+                <input type="email" id="form1Example1" class="form-control" />
+                <label class="form-label" for="form1Example1">Email address</label>
+            </div>
+        
+            <!-- Password input -->
+            <div class="form-outline mb-2">
+                <input type="password" id="form1Example2" class="form-control" />
+                <label class="form-label" for="form1Example2">Password</label>
+            </div>
+
+            <!-- Birth input -->
+            <div class="form-outline mb-2">
+                <input type="date" id="form1Example2" class="form-control" />
+                <label class="form-label" for="form1Example2">Date of birth</label>
+            </div>
+        
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-lg col-12" id="sign-in-btn">Sign in</button>
+            
+            <!-- 2 column grid layout for inline styling -->
+            <div class="row mb-2"> 
+                <div class="col" id="has-account-link">
+                    <!-- Simple link -->
+                    <a href="/sign-in">Already have an account? Sign in here.</a>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
