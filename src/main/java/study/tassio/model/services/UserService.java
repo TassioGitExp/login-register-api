@@ -1,5 +1,6 @@
 package study.tassio.model.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import study.tassio.model.entities.User;
 import study.tassio.model.repositories.UserRepository;
@@ -11,13 +12,14 @@ import java.util.Objects;
 public class UserService {
 
     // Injeção de dependência --->
+    @Autowired
     private UserRepository userRepository;
 
     public UserService(){}
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    // public UserService(UserRepository userRepository) {
+    //     this.userRepository = userRepository;
+    // }
     // <---
 
     public User create(User user) {
@@ -30,7 +32,7 @@ public class UserService {
         var user = findByEmail(email);
 
         if(Objects.equals(user.getPassword(), password)) {
-            user.setStatus(true);
+            //user.setStatus(true);
             userRepository.save(user);
         } else
             throw new RuntimeException("Wrong password.");
@@ -39,7 +41,7 @@ public class UserService {
     public void signout(String email) {
         var user = findByEmail(email);
 
-        user.setStatus(false);
+        //user.setStatus(false);
 
         userRepository.save(user);
     }

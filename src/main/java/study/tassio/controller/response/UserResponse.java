@@ -12,7 +12,7 @@ public class UserResponse {
     private String email;
     private String password;
     private String dateOfBirth;
-    private boolean status;
+    //private boolean status;
 
     public UserResponse fromUser(User user) {
         this.id = user.getId();
@@ -21,7 +21,7 @@ public class UserResponse {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.dateOfBirth = user.getDateOfBirth();
-        this.status = user.isStatus();
+        //this.status = user.isStatus();
 
         return this;
     }

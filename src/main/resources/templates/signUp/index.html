@@ -11,7 +11,7 @@
     <div class="container" id="sign-in-up">
         <!-- <h1>SING IN</h1> -->
         <h2 id="sign-in-up-title">Sign up</h2>
-        <form>
+        <form method="POST" th:action="@{/users/signup}" onsubmit="sConsole(event)">
             <!-- First name input -->
             <div class="form-outline mb-2">
                 <input type="text" id="form1Example1" class="form-control" />
@@ -20,39 +20,89 @@
 
             <!-- Last name input -->
             <div class="form-outline mb-2">
-                <input type="text" id="form1Example1" class="form-control" />
+                <input type="text" id="form1Example2" class="form-control" />
                 <label class="form-label" for="form1Example1">Last name</label>
             </div>
 
             <!-- Email input -->
             <div class="form-outline mb-2">
-                <input type="email" id="form1Example1" class="form-control" />
+                <input type="email" id="form1Example3" class="form-control" />
                 <label class="form-label" for="form1Example1">Email address</label>
             </div>
         
             <!-- Password input -->
             <div class="form-outline mb-2">
-                <input type="password" id="form1Example2" class="form-control" />
+                <input type="password" id="form1Example4" class="form-control" />
                 <label class="form-label" for="form1Example2">Password</label>
             </div>
 
             <!-- Birth input -->
             <div class="form-outline mb-2">
-                <input type="date" id="form1Example2" class="form-control" />
+                <input type="text" id="form1Example5" class="form-control"/>
                 <label class="form-label" for="form1Example2">Date of birth</label>
             </div>
         
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-lg col-12" id="sign-in-btn">Sign in</button>
+            <button type="submit" class="btn btn-primary btn-lg col-12" id="sign-in-btn" >Sign up</button>
             
             <!-- 2 column grid layout for inline styling -->
             <div class="row mb-2"> 
-                <div class="col" id="has-account-link">
+                <div class="col-12" id="has-account-link">
                     <!-- Simple link -->
                     <a href="/sign-in">Already have an account? Sign in here.</a>
                 </div>
             </div>
         </form>
     </div>
+    <!-- testing the form data -->
+    <script>
+        function sConsole(event) {
+            event.preventDefault();
+            // var data = document.getElementById("form1Example1");
+            // console.log("P. nome: "+data.value);
+
+            // data = document.getElementById("form1Example2");
+            // console.log("Sobrenome: "+data.value);
+
+            // data = document.getElementById("form1Example3");
+            // console.log("Email: "+data.value);
+
+            // data = document.getElementById("form1Example4");
+            // console.log("Senha: "+data.value);
+
+            // data = document.getElementById("form1Example5");
+            // console.log("Data: "+data.value);
+            var fName = document.getElementById("form1Example1");
+            var lName = document.getElementById("form1Example2");
+            var email = document.getElementById("form1Example3");
+            var password = document.getElementById("form1Example4");
+            var dateOfBirth = document.getElementById("form1Example5");
+
+            fetch('/users/signup', {
+            method: 'POST',
+            body: JSON.stringify({
+                // title: 'New Pirate Captain',
+                // body: 'Arrrrrr-ent you excited?',
+                // userId: 3
+                firstName: "{fName}",
+                lastName: "{lName}",
+                email: "{email}",
+                password: "{password}",
+                dateOfBirth: "{dateOfBirth}"
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }})
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                }
+            return Promise.reject(response);})
+            .then(function (data) {
+                console.log(data);})
+            .catch(function (error) {
+                console.warn('Something went wrong.', error);});
+        }
+    </script>
 </body>
 </html>

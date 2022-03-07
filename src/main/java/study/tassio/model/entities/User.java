@@ -13,6 +13,6 @@ public class User {
     private String email;
     private String password;
     private String dateOfBirth;
-    private boolean status = false;
+    //private boolean status = false;
 
 }
