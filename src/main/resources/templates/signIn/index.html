@@ -10,16 +10,16 @@
     <div class="container" id="sign-in-up">
         <!-- <h1>SING IN</h1> -->
         <h2 id="sign-in-up-title">Sign in</h2>
-        <form>
+        <form onsubmit="sConsole(event)">
             <!-- Email input -->
             <div class="form-outline mb-4">
-                <input type="email" id="form1Example1" class="form-control" />
+                <input type="email" id="email" class="form-control" />
                 <label class="form-label" for="form1Example1">Email address</label>
             </div>
         
             <!-- Password input -->
             <div class="form-outline mb-4">
-                <input type="password" id="form1Example2" class="form-control" />
+                <input type="password" id="password" class="form-control" />
                 <label class="form-label" for="form1Example2">Password</label>
             </div>
         
@@ -49,5 +49,35 @@
             </div>
         </form>
     </div>
+    <script>
+        function sConsole(event) {
+            event.preventDefault();
+
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            var param = "email="+email+"&"+"password="+password;
+
+            fetch('/users/sign-in?'+param, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                 'Content-type': 'text/plain;charset=UTF-8'
+            }})
+            .then(function (response) {
+                if (response.ok) {
+                    //console.log("response: \n"+response.text);
+                    return response.json;
+                }
+                return Promise.reject(response);
+            })
+            .then(function (data) {
+                console.log("data: \n"+data);
+                window.location.href = "/";
+            })
+            .catch(function (error) {
+                console.warn('Something went wrong.', error);});
+        }
+    </script>
 </body>
 </html>

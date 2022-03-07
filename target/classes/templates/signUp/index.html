@@ -11,34 +11,34 @@
     <div class="container" id="sign-in-up">
         <!-- <h1>SING IN</h1> -->
         <h2 id="sign-in-up-title">Sign up</h2>
-        <form method="POST" th:action="@{/users/signup}" onsubmit="sConsole(event)">
+        <form onsubmit="sConsole(event)">
             <!-- First name input -->
             <div class="form-outline mb-2">
-                <input type="text" id="form1Example1" class="form-control" />
+                <input type="text" id="firstName" class="form-control" />
                 <label class="form-label" for="form1Example1">First name</label>
             </div>
 
             <!-- Last name input -->
             <div class="form-outline mb-2">
-                <input type="text" id="form1Example2" class="form-control" />
+                <input type="text" id="lastName" class="form-control" />
                 <label class="form-label" for="form1Example1">Last name</label>
             </div>
 
             <!-- Email input -->
             <div class="form-outline mb-2">
-                <input type="email" id="form1Example3" class="form-control" />
+                <input type="email" id="email" class="form-control" />
                 <label class="form-label" for="form1Example1">Email address</label>
             </div>
         
             <!-- Password input -->
             <div class="form-outline mb-2">
-                <input type="password" id="form1Example4" class="form-control" />
+                <input type="password" id="password" class="form-control" />
                 <label class="form-label" for="form1Example2">Password</label>
             </div>
 
             <!-- Birth input -->
             <div class="form-outline mb-2">
-                <input type="text" id="form1Example5" class="form-control"/>
+                <input type="text" id="dateOfBirth" class="form-control" />
                 <label class="form-label" for="form1Example2">Date of birth</label>
             </div>
         
@@ -58,48 +58,36 @@
     <script>
         function sConsole(event) {
             event.preventDefault();
-            // var data = document.getElementById("form1Example1");
-            // console.log("P. nome: "+data.value);
 
-            // data = document.getElementById("form1Example2");
-            // console.log("Sobrenome: "+data.value);
+            var payload = {
+                firstName: document.getElementById("firstName").value,
+                lastName: document.getElementById("lastName").value,
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value,
+                dateOfBirth: document.getElementById("dateOfBirth").value
+            };
 
-            // data = document.getElementById("form1Example3");
-            // console.log("Email: "+data.value);
+            var payloadJson = JSON.stringify(payload); 
 
-            // data = document.getElementById("form1Example4");
-            // console.log("Senha: "+data.value);
+            console.log("json: \n"+payloadJson);
 
-            // data = document.getElementById("form1Example5");
-            // console.log("Data: "+data.value);
-            var fName = document.getElementById("form1Example1");
-            var lName = document.getElementById("form1Example2");
-            var email = document.getElementById("form1Example3");
-            var password = document.getElementById("form1Example4");
-            var dateOfBirth = document.getElementById("form1Example5");
-
-            fetch('/users/signup', {
+            fetch('/users/sign-up', {
             method: 'POST',
-            body: JSON.stringify({
-                // title: 'New Pirate Captain',
-                // body: 'Arrrrrr-ent you excited?',
-                // userId: 3
-                firstName: "{fName}",
-                lastName: "{lName}",
-                email: "{email}",
-                password: "{password}",
-                dateOfBirth: "{dateOfBirth}"
-            }),
+            mode: 'cors',
+            body: payloadJson,
             headers: {
-                'Content-type': 'application/json; charset=UTF-8'
+                'Content-type': 'application/json'
             }})
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
                 }
-            return Promise.reject(response);})
+                return Promise.reject(response);
+            })
             .then(function (data) {
-                console.log(data);})
+                console.log(data);
+                window.location.href = "/sign-in";
+            })
             .catch(function (error) {
                 console.warn('Something went wrong.', error);});
         }

@@ -1,6 +1,7 @@
 package study.tassio.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,15 +25,27 @@ public class UserController {
 
     public UserController(){}
 
+    // @PostMapping(path = "/sign-up", 
+    // consumes = "application/json",
+    // produces = {MediaType.APPLICATION_JSON_VALUE})
+    // public UserResponse signup(@RequestBody UserRequest userRequest) {
+    //     var user = userRequest.toUser();
+    //     System.out.println("test");
+
+    //     return new UserResponse().fromUser(userService.create(user));
+    // }
+
     // public UserController(UserService userService) {
     //     this.userService = userService;
     // }
     
 
-    @PostMapping("/sign-up")
+    @PostMapping(path = "/sign-up", 
+    consumes = "application/json",
+    produces = {MediaType.APPLICATION_JSON_VALUE})
     public UserResponse signup(@RequestBody UserRequest userRequest) {
         var user = userRequest.toUser();
-        System.out.println("test");
+        System.out.println("+\n+\n+\n"+user.toString()+"\n+\n+\n+");
 
         return new UserResponse().fromUser(userService.create(user));
     }
@@ -59,6 +72,7 @@ public class UserController {
     @PostMapping("/sign-in")
     public void signin(@RequestParam("email") String email, @RequestParam("password") String password) {
         userService.signin(email, password);
+        System.out.println("sign-in");    
     }
 
     @PostMapping("/sign-out")
