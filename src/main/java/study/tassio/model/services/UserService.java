@@ -32,7 +32,7 @@ public class UserService {
         var user = findByEmail(email);
 
         if(Objects.equals(user.getPassword(), password)) {
-            //user.setStatus(true);
+            user.setOnline(true);
             userRepository.save(user);
         } else
             throw new RuntimeException("Wrong password.");
@@ -41,7 +41,7 @@ public class UserService {
     public void signout(String email) {
         var user = findByEmail(email);
 
-        //user.setStatus(false);
+        user.setOnline(false);
 
         userRepository.save(user);
     }
