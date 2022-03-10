@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="header.css">
+    <link rel="stylesheet" type="text/css" href="footer.css">
     <title>Sign Up</title>
 </head>
 <body>
-    <!-- <h1>SING UP</h1> -->
-    <div class="container" id="sign-in-up">
+    <nav th:replace="fragments/header.html :: th-navbar"></nav>
+    <div class="container mx-auto" id="sign-in-up">
         <!-- <h1>SING IN</h1> -->
         <h2 id="sign-in-up-title">Sign up</h2>
         <form onsubmit="sConsole(event)">
@@ -43,18 +45,19 @@
             </div>
         
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-lg col-12" id="sign-in-btn" >Sign up</button>
+            <button type="submit" class="btn btn-primary btn-lg col-12" id="sign-up-btn" >CONFIRM</button>
             
-            <!-- 2 column grid layout for inline styling -->
+            <!-- 1 column grid layout for inline styling -->
             <div class="row mb-2"> 
-                <div class="col-12" id="has-account-link">
+                <div class="col-12" id="has-account-link-div">
                     <!-- Simple link -->
-                    <a href="/sign-in">Already have an account? Sign in here.</a>
+                    <a id="has-account-link" href="/sign-in">Already have an account? Sign in here.</a>
                 </div>
             </div>
         </form>
     </div>
-    <!-- testing the form data -->
+    <div th:replace="fragments/footer.html :: th-footer"></div>
+    
     <script>
         function sConsole(event) {
             event.preventDefault();

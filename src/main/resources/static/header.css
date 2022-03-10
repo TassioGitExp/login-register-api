@@ -1,0 +1,19 @@
+.navbar {
+    background-color:  #58d68d ;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 100px;
+}
+
+.nav-link a{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#home-btn {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: whitesmoke;
+    padding-right: 10px;
+    padding-left: 10px;
+}

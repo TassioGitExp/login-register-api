@@ -1,35 +1,42 @@
-.navbar {
-    background-color: red;
-    padding-left: 10px;
-}
-
-.container-fluid {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-#home-btn {
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    font-size: 24px;
-    padding-right: 10px;
-    padding-left: 0;
-}
-
 #sign-in-up {
-    padding-top: 100px;
+    /* padding-top: 100px;
     padding-left: 400px;
-    padding-right: 400px;
-    padding-bottom: 10px;
+    padding-right: 400px;*/
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-bottom: 100px; 
+    max-width: 430px;
+    border-radius: 3%;
 
-    background-color: #9ae3dc;
+    background-color: #e2e2e2;
 }
 
 #sign-in-up-title {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    color: #58d68d;
+}
+
+#sign-up-btn {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight:600;
+    background-color: #58d68d;
+    margin-bottom: 3px; 
+}
+
+#sign-in-btn {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight:600;
+    background-color: #58d68d;
+    margin-bottom: 3px; 
+}
+
+#has-account-link-div {
     text-align: center;
 }
 
 #has-account-link {
-    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #148f47;
 }
 

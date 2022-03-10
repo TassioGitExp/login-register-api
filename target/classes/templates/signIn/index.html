@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="header.css">
+    <link rel="stylesheet" type="text/css" href="footer.css">
     <title>Sign In</title>
 </head>
 <body>
-    <div class="container" id="sign-in-up">
+    <nav th:replace="fragments/header.html :: th-navbar"></nav>
+    <div class="container mx-auto" id="sign-in-up">
         <!-- <h1>SING IN</h1> -->
         <h2 id="sign-in-up-title">Sign in</h2>
         <form onsubmit="sConsole(event)">
@@ -40,15 +43,17 @@
             </div>
         
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-lg col-12" id="sign-in-btn">Sign in</button>
+            <button type="submit" class="btn btn-primary btn-lg col-12" id="sign-in-btn">CONFIRM</button>
             
-            <!--  -->
-            <div class="col-12" id="has-account-link">
+            <!-- Already have an account link -->
+            <div class="col-12" id="has-account-link-div">
                 <!-- Simple link -->
-                <a href="/sign-up">Doesn't have an account? Sign up here.</a>
+                <a id="has-account-link" href="/sign-up">Doesn't have an account? Sign up here.</a>
             </div>
         </form>
     </div>
+    <div th:replace="fragments/footer.html :: th-footer"></div>
+    
     <script>
         function sConsole(event) {
             event.preventDefault();

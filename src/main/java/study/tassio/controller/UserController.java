@@ -25,16 +25,6 @@ public class UserController {
 
     public UserController(){}
 
-    // @PostMapping(path = "/sign-up", 
-    // consumes = "application/json",
-    // produces = {MediaType.APPLICATION_JSON_VALUE})
-    // public UserResponse signup(@RequestBody UserRequest userRequest) {
-    //     var user = userRequest.toUser();
-    //     System.out.println("test");
-
-    //     return new UserResponse().fromUser(userService.create(user));
-    // }
-
     // public UserController(UserService userService) {
     //     this.userService = userService;
     // }
@@ -50,25 +40,6 @@ public class UserController {
         return new UserResponse().fromUser(userService.create(user));
     }
 
-    // Teste com metodo void, sem UserResponse
-    // @PostMapping("/sign-up")
-    // public void signup(@RequestBody UserRequest userRequest) {
-    //     var user = userRequest.toUser();
-    //     System.out.println(user);
-
-    //     userService.create(user);
-    // }
-
-    // Teste de redirect
-    // @PostMapping("/signup")
-    // public ModelAndView signup() {
-       
-    //     System.out.println("teste");
-    
-    //     // Meu deus isso funcionou
-    //     return new ModelAndView("redirect:/");
-    // }
-
     @PostMapping("/sign-in")
     public void signin(@RequestParam("email") String email, @RequestParam("password") String password) {
         userService.signin(email, password);
@@ -80,7 +51,7 @@ public class UserController {
         userService.signout(email);
     }
 
-    @GetMapping("/list+all")
+    @GetMapping("/list-all")
     public List<User> getAll() {
         return userService.findAll();
     }
