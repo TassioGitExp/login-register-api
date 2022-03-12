@@ -6,11 +6,36 @@
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
     <link rel="stylesheet" type="text/css" href="header.css">
     <link rel="stylesheet" type="text/css" href="footer.css">
+    <link rel="stylesheet" type="text/css" href="home.css">
     <title>Home</title>
 </head>
 <body>
     
     <nav th:replace="fragments/header.html :: th-navbar"></nav>
+    <div class="container" id="container-div">
+        <div class="row mx-auto" id="row-div">
+            <div class="col-6 mx-auto" id="col1">
+                <img class="mx-auto my-auto d-block" src="images/blank-profile-picture.png" alt="User picture" id="profile-picture">
+                <h2 class="text-center" style="color: #5a5a5a; margin-top: 3px;">John Doe</h2>
+            </div>
+            <div class="col-6 mx-auto" id="col2">
+                <div class="user-data-div mx-auto my-auto">
+                    <div class="user-data container-fluid" style="border-bottom: 2px solid #979A9A;">
+                        <h5 class="user-data-text text-center" style="color: #5a5a5a;">EMAIL</h5>
+                        <p class="user-data-text text-center" style="margin-bottom: 5px;">email@email.com.br</p>
+                    </div>
+                    <div class="user-data container-fluid" style="border-bottom: 2px solid #979A9A;">
+                        <h5 class="user-data-text text-center" style="padding-top: 5px; color: #5a5a5a;">PASSWORD</h5>
+                        <p class="user-data-text text-center" style="margin-bottom: 5px;">password123</p>
+                    </div>
+                    <div class="user-data container-fluid">
+                        <h5 class="user-data-text text-center" style="padding-top: 5px; color: #5a5a5a;">DATE OF BIRTH</h5>
+                        <p class="user-data-text text-center" style="margin-bottom: 0;">01/02/2001</p>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
     <div th:replace="fragments/footer.html :: th-footer"></div>
 
 </body>
