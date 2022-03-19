@@ -9,7 +9,17 @@
     <title>Sign Up</title>
 </head>
 <body>
+    <div id="cookiesWarning" style="position:absolute; width: 100%; height: 100%; z-index: 10;">
+        <div style="position: absolute; width: 100%; height: 100%; z-index: 11; background-color: black; opacity: 30%;"></div>
+        <div class="mx-auto" style="position: relative; margin-top: 30px; width: 200px; height: 200px; background-color: blue; z-index: 12;">
+            <p class="text-center" style="color: aliceblue;">ESSE WEBSITE USA COOKIES</p>
+            <button onclick="acceptCookies()">aceitar</button>
+            <button onclick="denyCookies()">Deny</button>
+        </div>
+    </div>
+    
     <nav th:replace="fragments/header.html :: th-navbar"></nav>
+    
     <div class="container mx-auto" id="sign-in-up">
         <!-- <h1>SING IN</h1> -->
         <h2 id="sign-in-up-title">Sign up</h2>
@@ -59,6 +69,91 @@
     <div th:replace="fragments/footer.html :: th-footer"></div>
     
     <script>
+        window.onload = verifyCookie();
+        
+        var myCookie = {
+            cookieStatus: "ok"
+        };
+
+        var myCookieJson = JSON.stringify(myCookie);
+
+        function acceptCookies(){ // OK
+            setCookie("myCookie", myCookieJson, "expires=Tue, 01 Jan 2115 12:00:00 UTC");
+            
+            var element = document.getElementById("cookiesWarning");
+            element.parentNode.removeChild(element);
+            
+            console.log("cookies accepted.");
+            console.log("cookie criado");
+        }
+
+        function denyCookies(){
+            var element = document.getElementById("cookiesWarning");
+            element.parentNode.removeChild(element);
+            console.log("cookies denied.");
+        }
+
+        function verifyCookie() {
+            
+            var userCookie = getCookie("userCookie"); // Verifica cookies de usuário
+            console.log("verificando userCookie...");
+
+            if (userCookie != null) {
+                console.log("user cookie exists.");
+                
+                userCookie = JSON.parse(userCookie.replace("expires=Tue, 01 Jan 2115 12:00:00 UTC", ""));
+            
+                if (userCookie.online==true) { // Verifica se tem um user online, se tiver redirect home page
+                    userCookie = JSON.stringify(userCookie);
+                    setCookie("userCookie", userCookie, "expires=Tue, 01 Jan 2115 12:00:00 UTC");
+                    
+                    console.log("user online. redirecting...");
+                    window.location.href = "/"; // se user online redirect home page
+                }else if(userCookie.rememberMe==true && userCookie.online==false){
+                    userCookie.online == true; // se user offline mas remember me ativo = redirect home page
+                    
+                    userCookie = JSON.stringify(userCookie);
+                    setCookie("userCookie", userCookie, "expires=Tue, 01 Jan 2115 12:00:00 UTC");
+                    
+                    console.log("remember me active. redirecting...");
+                    window.location.href = "/";
+                } 
+            } else {
+                console.log("userCookie não existe.");
+            }
+
+            var myCookie = getCookie("myCookie"); // Verifica aceitação de cookies
+            
+            if (myCookie != null) { //Se cookie existe
+                var element = document.getElementById("cookiesWarning");
+                element.parentNode.removeChild(element);//Não mostra botao para aceitar cookies
+                console.log("cookie de aceitação existe.");
+            } else
+                console.log("cookie de aceitação não existe.");
+        }
+
+        function setCookie(name,value,expires) {
+            var expireDate = expires;
+            document.cookie = name + "=" + (value || "")  + expireDate + "; path=/";
+        }
+        
+        function getCookie(name) {
+            var cookieName = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') 
+                    c = c.substring(1,c.length);
+                if (c.indexOf(cookieName) == 0) 
+                    return c.substring(cookieName.length,c.length);
+            }
+            return null;
+        }
+        
+        function eraseCookie(name) {   
+            document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+
         function sConsole(event) {
             event.preventDefault();
 
@@ -72,7 +167,7 @@
 
             var payloadJson = JSON.stringify(payload); 
 
-            console.log("json: \n"+payloadJson);
+            console.log("payload: \n"+payloadJson);
 
             fetch('/users/sign-up', {
             method: 'POST',
@@ -88,7 +183,8 @@
                 return Promise.reject(response);
             })
             .then(function (data) {
-                console.log(data);
+                setCookie("userCookie", JSON.stringify(data), "expires=Tue, 01 Jan 2115 12:00:00 UTC");
+            
                 window.location.href = "/sign-in";
             })
             .catch(function (error) {

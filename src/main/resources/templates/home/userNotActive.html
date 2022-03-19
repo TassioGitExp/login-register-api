@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="header.css">
+    <link rel="stylesheet" type="text/css" href="footer.css">
+    <title>Home</title>
+</head>
+<body>
+    
+    <nav th:replace="fragments/header.html :: th-navbar"></nav>
+    <div class="container" id="container-div">
+        <h2>OOPS... Looks like you're not logged in!</h2>
+        <div class="col-12">
+            <a class="button" href="/sign-in">Sign in here!</a>
+        </div>
+        <p>Don't have an account yet?</p>
+        <div class="col-12">
+            <a class="button" href="/sign-up">Sign up here!</a>
+        </div>
+    </div>
+    <div th:replace="fragments/footer.html :: th-footer"></div>
+
+</body>
+</html>

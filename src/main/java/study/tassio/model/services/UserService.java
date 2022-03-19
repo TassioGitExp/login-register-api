@@ -28,22 +28,36 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void signin(String email, String password) {
+    public void signin(String email, String password, Boolean rememberMe) {
         var user = findByEmail(email);
 
         if(Objects.equals(user.getPassword(), password)) {
             user.setOnline(true);
+            user.setRememberMe(rememberMe);
             userRepository.save(user);
         } else
             throw new RuntimeException("Wrong password.");
     }
 
-    public void signout(String email) {
-        var user = findByEmail(email);
+    public void isOffline(String id) {
+        var user = findById(id);
 
         user.setOnline(false);
+        userRepository.save(user);
+    }
+
+    public void signout(String id) {
+        var user = findById(id);
+
+        user.setOnline(false);
+        user.setRememberMe(false);
 
         userRepository.save(user);
+    }
+
+    public User findById(String id) {
+        return userRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Id not found."));
     }
 
     public User findByEmail(String email) {

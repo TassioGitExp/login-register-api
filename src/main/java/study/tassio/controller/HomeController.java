@@ -15,6 +15,14 @@ public class HomeController {
         return mv;
     }
 
+    @GetMapping("/not-logged-in")
+    public ModelAndView notLogged() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("home/userNotActive.html");
+
+        return mv;
+    }
+
     @GetMapping("/sign-up")
     public ModelAndView signup() {
         ModelAndView mv = new ModelAndView();

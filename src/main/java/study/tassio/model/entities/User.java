@@ -14,5 +14,6 @@ public class User {
     private String password;
     private String dateOfBirth;
     private boolean online = false;
+    private boolean rememberMe = false;
 
 }
