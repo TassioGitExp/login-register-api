@@ -42,20 +42,14 @@ public class UserController {
 
     @PostMapping("/sign-in")
     public void signin(@RequestParam("email") String email, 
-                        @RequestParam("password") String password, 
-                        @RequestParam("remember") Boolean rememberMe) {
-        userService.signin(email, password, rememberMe);
+                        @RequestParam("password") String password) {
+        userService.signin(email, password);
         System.out.println("sign-in");    
     }
 
     @PostMapping("/sign-out")
     public void signout(@RequestParam("id") String id) {
         userService.signout(id);
-    }
-
-    @PostMapping("/user-offline")
-    public void isOffline(@RequestParam("id") String id) {
-        userService.isOffline(id);
     }
 
     @GetMapping("/list-all")

@@ -12,8 +12,7 @@ public class UserResponse {
     private String email;
     private String password;
     private String dateOfBirth;
-    private boolean online;
-    private boolean rememberMe;
+
 
     public UserResponse fromUser(User user) {
         this.id = user.getId();
@@ -22,8 +21,6 @@ public class UserResponse {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.dateOfBirth = user.getDateOfBirth();
-        this.online = user.isOnline();
-        this.rememberMe = user.isRememberMe();
 
         return this;
     }

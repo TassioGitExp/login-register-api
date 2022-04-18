@@ -9,15 +9,6 @@
     <title>Sign In</title>
 </head>
 <body>
-    <div id="cookiesWarning" style="position:absolute; width: 100%; height: 100%; z-index: 10;">
-        <div style="position: absolute; width: 100%; height: 100%; z-index: 11; background-color: black; opacity: 30%;"></div>
-        <div class="mx-auto" style="position: relative; margin-top: 30px; width: 200px; height: 200px; background-color: blue; z-index: 12;">
-            <p class="text-center" style="color: aliceblue;">ESSE WEBSITE USA COOKIES</p>
-            <button onclick="acceptCookies()">aceitar</button>
-            <button onclick="denyCookies()">Deny</button>
-        </div>
-    </div>
-    
     <nav th:replace="fragments/header.html :: th-navbar"></nav>
 
     <div class="container mx-auto" id="sign-in-up">
@@ -25,31 +16,15 @@
         <h2 id="sign-in-up-title">Sign in</h2>
         <form onsubmit="sConsole(event)">
             <!-- Email input -->
-            <div class="form-outline mb-4">
+            <div class="form-outline mb-6">
                 <input type="email" id="email" class="form-control" />
                 <label class="form-label" for="form1Example1">Email address</label>
             </div>
         
             <!-- Password input -->
-            <div class="form-outline mb-4">
+            <div class="form-outline mb-6">
                 <input type="password" id="password" class="form-control" />
                 <label class="form-label" for="form1Example2">Password</label>
-            </div>
-        
-            <!-- 2 column grid layout for inline styling -->
-            <div class="row mb-4">
-                <div class="col d-flex justify-content-center">
-                    <!-- Checkbox -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="rmbr" id="rememberMe"/>
-                        <label class="form-check-label" for="form1Example3"> Remember me </label>
-                    </div>
-                </div>
-            
-                <div class="col">
-                    <!-- Simple link -->
-                    <a href="#!">Forgot password?</a>
-                </div>
             </div>
         
             <!-- Submit button -->
@@ -65,111 +40,14 @@
     <div th:replace="fragments/footer.html :: th-footer"></div>
     
     <script>
-        window.onload = verifyCookie();
         
-        var myCookie = {
-            cookieStatus: "ok"
-        };
-
-         
-        var myCookieJson = JSON.stringify(myCookie);
-
-        function acceptCookies(){ // OK
-            setCookie("myCookie", myCookieJson, "expires=Tue, 01 Jan 2115 12:00:00 UTC");
-            
-            var element = document.getElementById("cookiesWarning");
-            element.parentNode.removeChild(element);
-            
-            // accepted = true;
-            console.log("cookies accepted.");
-            console.log("cookie criado");
-        }
-
-        function denyCookies(){
-            var element = document.getElementById("cookiesWarning");
-            element.parentNode.removeChild(element);
-            console.log("cookies denied.");
-        }
-
-        function verifyCookie() {
-            
-            var userCookie = getCookie("userCookie"); // Verifica cookies de usuário
-            console.log("verificando userCookie...");
-
-            if (userCookie != null) {
-                console.log("user cookie exists.");
-                
-                userCookie = JSON.parse(userCookie.replace("expires=Tue, 01 Jan 2115 12:00:00 UTC", ""));
-            
-                if (userCookie.online==true) { // Verifica se tem um user online, se tiver redirect home page
-                    userCookie = JSON.stringify(userCookie);
-                    setCookie("userCookie", userCookie, "expires=Tue, 01 Jan 2115 12:00:00 UTC");
-                    
-                    console.log("user online. redirecting...");
-                    window.location.href = "/"; // se user online redirect home page
-                }else if(userCookie.rememberMe==true && userCookie.online==false){
-                    userCookie.online == true; // se user offline mas remember me ativo = redirect home page
-                    
-                    userCookie = JSON.stringify(userCookie);
-                    setCookie("userCookie", userCookie, "expires=Tue, 01 Jan 2115 12:00:00 UTC");
-                    
-                    console.log("remember me active. redirecting...");
-                    window.location.href = "/";
-                } 
-            } else {
-                console.log("userCookie não existe.");
-            }
-            
-            
-
-            var myCookie = getCookie("myCookie"); // Verifica aceitação de cookies
-            
-            if (myCookie != null) { //Se cookie existe
-                var element = document.getElementById("cookiesWarning");
-                element.parentNode.removeChild(element);//Não mostra botao para aceitar cookies
-                console.log("cookie de aceitação existe.");
-            } else
-                console.log("cookie de aceitação não existe.");
-
-            // var userCookie = JSON.parse(getCookie("userCookie").replace(/expires=Tue, 01 Jan 2115 12:00:00 UTC/g, ""));       
-        }
-
-        function setCookie(name,value,expires) {
-            var expireDate = expires;
-            document.cookie = name + "=" + (value || "")  + expireDate + "; path=/";
-        }
-        
-        function getCookie(name) {
-            var cookieName = name + "=";
-            var ca = document.cookie.split(';');
-            for(var i=0;i < ca.length;i++) {
-                var c = ca[i];
-                while (c.charAt(0)==' ') 
-                    c = c.substring(1,c.length);
-                if (c.indexOf(cookieName) == 0) 
-                    return c.substring(cookieName.length,c.length);
-            }
-            return null;
-        }
-        
-        function eraseCookie(name) {   
-            document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        }
-    
         function sConsole(event) {
             event.preventDefault();
 
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
-            
-            var rememberMe = false;  
-            
-            if(document.getElementById("rememberMe").checked)
-                rememberMe = true;
-            
-            console.log(rememberMe);
 
-            var param = "email="+email+"&"+"password="+password+"&"+"remember="+rememberMe;
+            var param = "email="+email+"&"+"password="+password+"&";
 
             fetch('/users/sign-in?'+param, {
             method: 'POST',
@@ -185,28 +63,7 @@
                 return Promise.reject(response);
             })
             .then(function (data) {
-                var userCookie = getCookie("userCookie"); 
-                console.log("userCookie getcookie: \n"+userCookie);
-               
-                userCookie = JSON.parse(userCookie.replace("expires=Tue, 01 Jan 2115 12:00:00 UTC", ""));
-                console.log("userCookie parse JSON");
-                console.log(userCookie);
-
-                if(rememberMe == true)
-                    userCookie.rememberMe = true;
-                else
-                    userCookie.rememberMe = false;
                 
-                userCookie.online = true;
-
-                /*eraseCookie("userCookie");
-                
-                console.log("old user cookie erased");*/
-                
-                userCookie = JSON.stringify(userCookie);
-                setCookie("userCookie", userCookie, "expires=Tue, 01 Jan 2115 12:00:00 UTC");
-                
-                console.log("userCookie update:\n"+getCookie("userCookie"));
                 window.location.href = "/";
             })
             .catch(function (error) {

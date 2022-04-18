@@ -28,29 +28,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void signin(String email, String password, Boolean rememberMe) {
+    public void signin(String email, String password) {
         var user = findByEmail(email);
 
         if(Objects.equals(user.getPassword(), password)) {
-            user.setOnline(true);
-            user.setRememberMe(rememberMe);
             userRepository.save(user);
         } else
             throw new RuntimeException("Wrong password.");
     }
 
-    public void isOffline(String id) {
-        var user = findById(id);
-
-        user.setOnline(false);
-        userRepository.save(user);
-    }
-
     public void signout(String id) {
         var user = findById(id);
-
-        user.setOnline(false);
-        user.setRememberMe(false);
 
         userRepository.save(user);
     }

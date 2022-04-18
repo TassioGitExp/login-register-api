@@ -11,8 +11,7 @@ public class UserRequest {
     private String email;
     private String password;
     private String dateOfBirth;
-    private boolean online;
-    private boolean rememberMe;
+
 
     public User toUser(){
         var user = new User();
@@ -22,8 +21,6 @@ public class UserRequest {
         user.setEmail(email);
         user.setPassword(password);
         user.setDateOfBirth(dateOfBirth);
-        user.setOnline(online);
-        user.setRememberMe(rememberMe);
 
         return user;
     }
