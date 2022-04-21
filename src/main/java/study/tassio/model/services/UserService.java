@@ -55,6 +55,10 @@ public class UserService {
 
     public List<User> findAll() {
         
+        if(userRepository.findAll()==null){
+            throw new RuntimeException("No users found.");
+        }
+
         return userRepository.findAll();
     }
 }
