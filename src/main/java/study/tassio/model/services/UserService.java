@@ -34,7 +34,7 @@ public class UserService {
         if(Objects.equals(user.getPassword(), password)) {
             userRepository.save(user);
         } else
-            throw new RuntimeException("Wrong password.");
+            throw new RuntimeException("Wrong email or password.");
     }
 
     public void signout(String id) {
